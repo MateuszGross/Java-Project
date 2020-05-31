@@ -43,7 +43,13 @@ public class Home {
         ResultSet myRs = st.executeQuery("Select * from klient");
 
         while(myRs.next()) {
-            System.out.println(myRs.getString(myRs.getInt("idKlient"))+"," +myRs.getString("Imie") + "," + myRs.getString("Nazwisko")+ "," + myRs.getString("nrTelefonu")+ "," + myRs.getString("nrDowodu"));
+            System.out.println(myRs.getString(myRs.getInt("idKlient"))+","
+                    + myRs.getString("Imie") + ","
+                    + myRs.getString("Nazwisko")+ ","
+                    + myRs.getString("nrTelefonu")+ ","
+                    + myRs.getString("nrDowodu"));
+
+
         }
     }
 }
