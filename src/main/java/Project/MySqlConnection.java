@@ -47,7 +47,7 @@ public class MySqlConnection {
         return FilmsList;
     }
 
-    public ArrayList<Client> getClients(Connection con) {
+    public ArrayList<Client> getClients() {
         ArrayList<Client> clientsList = new ArrayList<>();
         try {
             String query = "select * from klient";
@@ -69,7 +69,7 @@ public class MySqlConnection {
         return clientsList;
     }
 
-    public void addClient(Connection con, String imie, String nazwisko, String NrTelefonu, String NrDowodu) {
+    public void addClient(String imie, String nazwisko, String NrTelefonu, String NrDowodu) {
         PreparedStatement pstmt = null;
         try {
             pstmt = con.prepareStatement("insert into klient (imie, nazwisko, NrTelefonu, NrDowodu) VALUES(?,?,?,?)");
@@ -85,7 +85,7 @@ public class MySqlConnection {
         }
     }
 
-    public void deleteClient(Connection con, String id) {
+    public void deleteClient(String id) {
         PreparedStatement pstmt = null;
         try {
             pstmt = con.prepareStatement("DELETE FROM klient WHERE idKlient = ?");

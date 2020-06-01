@@ -26,7 +26,7 @@ public class TestClass {
 
         //dodawanie użytkownika
         MySqlConnection connectionAddUser = new MySqlConnection(con);
-        //connectionAddUser.addClient(con,"Jan","Kowalski","777444000","ABC495831");
+        //connectionAddUser.addClient("Bard","Drab","123000999","XCD567831");
 
         //stare dodawanie uzytkownika
         /*PreparedStatement pstmt = con.prepareStatement(query);
