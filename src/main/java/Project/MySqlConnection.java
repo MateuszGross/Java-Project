@@ -11,12 +11,12 @@ public class MySqlConnection {
     private Statement st;
     private ResultSet rs;
 
-    public MySqlConnection() {
+    public MySqlConnection(Connection con) {
         try {
-            //Class.forName("com.mysql.cj.jdbc.Driver");
-
-            con = DriverManager.getConnection("jdbc.mysql://localhost:3306/vhs","root","baza123");//(url bazy, login , haslo);
-            st = con.createStatement();
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            //con = DriverManager.getConnection("jdbc.mysql://localhost:3306/vhs","root","baza123");//(url bazy, login , haslo);
+            //st = con.createStatement();
+            this.con = con;
         }
         catch (Exception ex) {
             System.out.println("Error: " + ex);
@@ -47,20 +47,19 @@ public class MySqlConnection {
         return FilmsList;
     }
 
-    public ArrayList<Client> getClients() {
+    public ArrayList<Client> getClients(Connection con) {
         ArrayList<Client> clientsList = new ArrayList<>();
-
         try {
-            String query = "select * from client";
+            String query = "select * from klient";
             rs = st.executeQuery(query);
             Client client;
             while (rs.next()) {
                 client = new Client(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getString("surname"),
-                        rs.getString("address"),
-                        rs.getString("phoneNumber")
+                        rs.getInt("idKlient"),
+                        rs.getString("imie"),
+                        rs.getString("nazwisko"),
+                        rs.getString("NrTelefonu"),
+                        rs.getString("NrDowodu")
                 );
                 clientsList.add(client);
             }
@@ -70,34 +69,32 @@ public class MySqlConnection {
         return clientsList;
     }
 
-    public void addClient(String name, String surname, String address, String phone) {
-
+    public void addClient(Connection con, String imie, String nazwisko, String NrTelefonu, String NrDowodu) {
         PreparedStatement pstmt = null;
         try {
-            pstmt = con.prepareStatement("insert into client (name, surname, address, phone_number) VALUES(?,?,?,?)");
-            pstmt.setString(1, name);
-            pstmt.setString(2, surname);
-            pstmt.setString(3, address);
-            pstmt.setString(4, phone);
+            pstmt = con.prepareStatement("insert into klient (imie, nazwisko, NrTelefonu, NrDowodu) VALUES(?,?,?,?)");
+            pstmt.setString(1, imie);
+            pstmt.setString(2, nazwisko);
+            pstmt.setString(3, NrTelefonu);
+            pstmt.setString(4, NrDowodu);
+
+            pstmt.execute();
         }
         catch (Exception ex) {
             System.out.println("Error:" + ex);
         }
-
     }
 
-    public void deleteClient(String id) {
-
+    public void deleteClient(Connection con, String id) {
         PreparedStatement pstmt = null;
         try {
-            pstmt = con.prepareStatement("DELETE FROM client WHERE id = ?");
+            pstmt = con.prepareStatement("DELETE FROM klient WHERE idKlient = ?");
             pstmt.setString(1, id);
+            pstmt.execute();
         }
         catch (Exception ex) {
             System.out.println("Error:" + ex);
         }
-
-
     }
 
     public int checkDateAvailability(String startDate, String endDate, String FilmId) {

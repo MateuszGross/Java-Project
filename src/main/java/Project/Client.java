@@ -2,66 +2,57 @@ package Project;
 
 public class Client {
 
-    private int idClient;
-    private String name;
-    private String surname;
-    private String address;
-    private String phoneNumber;
-    private String idNumber;
+    private int idKlient;
+    private String imie;
+    private String nazwisko;
+    private String NrTelefonu;
+    private String NrDowodu;
 
-    public Client(int idClient, String name, String surname, String address, String phoneNumber) {
-        this.idClient = idClient;
-        this.name = name;
-        this.surname = surname;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
+    public Client(int idKlient, String imie, String nazwisko, String NrTelefonu, String NrDowodu) {
+        this.idKlient = idKlient;
+        this.imie = imie;
+        this.nazwisko = nazwisko;
+        this.NrTelefonu = NrTelefonu;
+        this.NrDowodu = NrDowodu;
     }
 
-    public int getIdClient() {
-        return idClient;
+    public int getIdKlient() {
+        return idKlient;
     }
 
-    public void setIdClient(int idClient) {
-        this.idClient = idClient;
+    public void setIdKlient(int idKlient) {
+        this.idKlient = idKlient;
     }
 
-    public String getName() {
-        return name;
+    public String getImie() {
+        return imie;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setImie(String imie) {
+        this.imie = imie;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getNazwisko() {
+        return nazwisko;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setNazwisko(String nazwisko) {
+        this.nazwisko = nazwisko;
     }
 
-    public String getAddress() {
-        return address;
+    public String getNrTelefonu() {
+        return NrTelefonu;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setNrTelefonu(String nrTelefonu) {
+        this.NrTelefonu = nrTelefonu;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getNrDowodu() {
+        return NrDowodu;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getIdNumber() {
-        return idNumber;
-    }
-
-    public void setIdNumber(String idNumber) {
-        this.idNumber = idNumber;
+    public void setNrDowodu(String nrDowodu) {
+        this.NrDowodu = nrDowodu;
     }
 }
