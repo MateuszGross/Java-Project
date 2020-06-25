@@ -1,6 +1,7 @@
 package Project;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.concurrent.TimeUnit;
@@ -14,29 +15,49 @@ public class MySqlConnection {
     public MySqlConnection(Connection con) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            //con = DriverManager.getConnection("jdbc.mysql://localhost:3306/vhs","root","baza123");//(url bazy, login , haslo);
-            //st = con.createStatement();
             this.con = con;
+            st = con.createStatement();
+
         }
         catch (Exception ex) {
             System.out.println("Error: " + ex);
         }
     }
 
-    public ArrayList<Film> getFilms() {
+    public void getFilmsVoid() {
         ArrayList<Film> FilmsList = new ArrayList<>();
 
         try {
-            String query = "select * from Film";
+            String query = "select * from film";
             rs = st.executeQuery(query);
             Film Film;
             while (rs.next()) {
                 Film = new Film(
-                        rs.getInt("id"),
-                        rs.getString("title"),
-                        rs.getString("author"),
-                        rs.getString("category"),
-                        rs.getInt("year")
+                        rs.getInt("idFilm"),
+                        rs.getString("Tytul"),
+                        rs.getString("Gatunek")
+                );
+                FilmsList.add(Film);
+            }
+        }
+        catch (Exception ex) {
+            System.out.println("Error:" + ex);
+        }
+        System.out.println(FilmsList);
+    }
+
+    public ArrayList<Film> getFilms() {
+        ArrayList<Film> FilmsList = new ArrayList<>();
+
+        try {
+            String query = "select * from film";
+            rs = st.executeQuery(query);
+            Film Film;
+            while (rs.next()) {
+                Film = new Film(
+                        rs.getInt("idFilm"),
+                        rs.getString("Tytul"),
+                        rs.getString("Gatunek")
                 );
                 FilmsList.add(Film);
             }
@@ -45,6 +66,64 @@ public class MySqlConnection {
             System.out.println("Error:" + ex);
         }
         return FilmsList;
+    }
+
+    public int addNewMovie(int idFilm , String Tytul, String Gatunek)
+    {
+        PreparedStatement pstmt = null;
+        try{
+            pstmt = con.prepareStatement("insert into film (idFilm, Tytul, Gatunek) VALUES(?,?,?)");
+            pstmt.setInt(1, idFilm);
+            pstmt.setString(2, Tytul);
+            pstmt.setString(3, Gatunek);
+
+            pstmt.execute();
+
+        }
+        catch(Exception ex){
+            System.out.println("Error:"+ ex);
+        }
+        System.out.println("Film zostal dodany do bazy");
+        return 1;
+    }
+
+    public int addNewMovieRental(int idFilmu , Date DataWypozyczenia, int IdKlienta, int LiczbaDni, Date DataZwrotu)
+    {
+        PreparedStatement pstmt = null;
+        try{
+            pstmt = con.prepareStatement("insert into wypozyczenia (idFilmu, DataWypozyczenia, IdKlienta, LiczbaDni, DataZwrotu) VALUES(?,?,?,?,?)");
+            pstmt.setInt(1, idFilmu);
+            pstmt.setDate(2, (java.sql.Date) DataWypozyczenia);
+            pstmt.setInt(3, IdKlienta);
+            pstmt.setInt(4, LiczbaDni);
+            pstmt.setDate(5, (java.sql.Date) DataZwrotu);
+        }
+        catch(Exception ex){
+            System.out.println("Error:"+ ex);
+        }
+        return 1;
+    }
+
+    public void getClientsVoid() {
+        ArrayList<Client> clientsList = new ArrayList<>();
+        try {
+            String query = "select * from klient";
+            rs = st.executeQuery(query);
+            Client client;
+            while (rs.next()) {
+                client = new Client(
+                        rs.getInt("idKlient"),
+                        rs.getString("Imie"),
+                        rs.getString("Nazwisko"),
+                        rs.getString("NrTelefonu"),
+                        rs.getString("NrDowodu")
+                );
+                clientsList.add(client);
+            }
+        } catch (Exception ex) {
+            System.out.println("Error:" + ex);
+        }
+        System.out.println(clientsList);
     }
 
     public ArrayList<Client> getClients() {
@@ -56,8 +135,8 @@ public class MySqlConnection {
             while (rs.next()) {
                 client = new Client(
                         rs.getInt("idKlient"),
-                        rs.getString("imie"),
-                        rs.getString("nazwisko"),
+                        rs.getString("Imie"),
+                        rs.getString("Nazwisko"),
                         rs.getString("NrTelefonu"),
                         rs.getString("NrDowodu")
                 );
@@ -120,7 +199,7 @@ public class MySqlConnection {
         return outputDays;
     }
 
-    public int addNewMovieRental(String beginDate,String expireDate,String FilmId,String clientId)
+    /*public int addNewMovieRental(String beginDate,String expireDate,String FilmId,String clientId)
     {
         PreparedStatement pstmt = null;
         try{
@@ -134,7 +213,7 @@ public class MySqlConnection {
             System.out.println("Error:"+ ex);
         }
         return 1;
-    }
+    }*/
 
     public ArrayList<MovieRental> getMovieRental() {
         ArrayList<MovieRental> MovieRentalsList = new ArrayList<>();

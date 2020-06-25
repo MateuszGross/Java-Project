@@ -1,73 +1,49 @@
 package Project;
 
 public class Film {
-    private int id;
-    private String title;
-    private String author;
-    private String category;
-    private int yearOfProduction;
-   // private String image; //dodajemy obrazek filmu?
+    private int idFilm;
+    private String Tytul;
+    private String Gatunek;
 
-    public Film(int id, String title, String author, String category, int yearOfProduction){ //String image) {
-        this.id = id;
-        this.title = title;
-        this.author = author;
-        this.category = category;
-        this.yearOfProduction = yearOfProduction;
-        //this.image = image;
-
+    public Film(int idFilm, String tytul, String gatunek) {
+        {
+            this.idFilm = idFilm;
+            this.Tytul = tytul;
+            this.Gatunek = gatunek;
+        }
     }
 
-    public Film() { //do dodawania nowego filmu
+    public int getIdFilm() {
+        return idFilm;
     }
 
-    public int getId() {
-        return id;
+    public void setIdFilm(int idFilm) {
+        this.idFilm = idFilm;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public String getTytul() {
+        return Tytul;
     }
 
-    public String getTitle() {
-        return title;
+    public void setTytul(String tytul) {
+        this.Tytul = tytul;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public String getGatunek() {
+        return Gatunek;
     }
 
-    public String getAuthor() {
-        return author;
+    public void setGatunek(String gatunek) {
+        this.Gatunek = gatunek;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    @Override
+    public String toString() {
+        return "Film{" +
+                "idFilm=" + idFilm +
+                ", Tytul='" + Tytul + '\'' +
+                ", Gatunek='" + Gatunek + '\'' +
+                '}';
     }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    /*public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }*/
-
-    public int getYearOfProduction() {
-        return yearOfProduction;
-    }
-
-    public void setYearOfProduction(int yearOfProduction) {
-        this.yearOfProduction = yearOfProduction;
-    }
-
-
 }
+

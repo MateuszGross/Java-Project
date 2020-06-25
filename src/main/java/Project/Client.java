@@ -55,4 +55,15 @@ public class Client {
     public void setNrDowodu(String nrDowodu) {
         this.NrDowodu = nrDowodu;
     }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "idKlient=" + idKlient +
+                ", imie='" + imie + '\'' +
+                ", nazwisko='" + nazwisko + '\'' +
+                ", NrTelefonu='" + NrTelefonu + '\'' +
+                ", NrDowodu='" + NrDowodu + '\'' +
+                '}';
+    }
 }
